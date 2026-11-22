@@ -133,6 +133,10 @@ local function liquid_glass_traffic_lights(plugin)
   local original_add_button = plugin.add_button
   local added = false
   plugin.add_button = function()
+    -- workspace-modes' titlebars() also runs at runtime (first floating
+    -- workspace, Super+L), after config.reloaded: it sets the stock options
+    -- and then adds its buttons, so re-apply ours here, right after it.
+    liquid_glass_titlebar_options()
     if added then
       return
     end
