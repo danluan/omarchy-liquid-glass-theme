@@ -1,0 +1,79 @@
+{
+  "bar": {
+    "background": "glassy",
+    "position": "top",
+    "layout": {
+      "center": [],
+      "centerBegin": [],
+      "centerEnd": [],
+      "left": [
+        {
+          "id": "danluan.apple-menu"
+        },
+        {
+          "id": "omarchy.spacer",
+          "size": 6
+        },
+        {
+          "id": "danluan.app-menu"
+        },
+        {
+          "id": "omarchy.spacer",
+          "size": 10
+        },
+        {
+          "id": "omarchy.workspaces"
+        },
+        {
+          "id": "omarchy.indicators"
+        },
+        {
+          "id": "omarchy.system-update"
+        }
+      ],
+      "right": [
+        {
+          "id": "omarchy.tray"
+        },
+        {
+          "id": "omarchy.agents"
+        },
+        {
+          "id": "danluan.control-center",
+          "hiddenTiles": [
+            "keyboard"
+          ]
+        },
+        {
+          "id": "omarchy.spacer",
+          "size": 4
+        },
+        {
+          "id": "omarchy.clock",
+          "format": "ddd d MMM  HH:mm",
+          "formatAlt": "d MMMM 'W'ww yyyy",
+          "verticalFormat": "HH\n—\nmm"
+        },
+        {
+          "id": "omarchy.spacer",
+          "size": 6
+        }
+      ],
+      "tray": []
+    }
+  },
+  "cloneSourceRestores": [
+    "danluan.apple-menu",
+    "danluan.dock"
+  ],
+  "disabledPlugins": [
+    "omarchy.menu",
+    "omarchy.dock"
+  ],
+  "plugins": [
+    {
+      "id": "danluan.dock"
+    }
+  ],
+  "version": 1
+}
