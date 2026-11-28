@@ -65,6 +65,8 @@ liquid_glass_decoration()
 hl.curve("apple", { type = "bezier", points = { { 0.25, 0.1 }, { 0.25, 1 } } })
 hl.curve("spring", { type = "bezier", points = { { 0.32, 0.72 }, { 0, 1 } } })
 hl.curve("appleIn", { type = "bezier", points = { { 0.4, 0 }, { 1, 1 } } })
+-- Spotlight-like overlay curve: quick start, long soft settle.
+hl.curve("overlayIn", { type = "bezier", points = { { 0.16, 1 }, { 0.3, 1 } } })
 
 hl.animation({ leaf = "windows", enabled = true, speed = 4, bezier = "spring" })
 hl.animation({ leaf = "windowsIn", enabled = true, speed = 4, bezier = "spring", style = "popin 92%" })
@@ -74,8 +76,10 @@ hl.animation({ leaf = "fade", enabled = true, speed = 3, bezier = "apple" })
 hl.animation({ leaf = "fadeIn", enabled = true, speed = 3, bezier = "apple" })
 hl.animation({ leaf = "fadeOut", enabled = true, speed = 2.5, bezier = "apple" })
 hl.animation({ leaf = "layers", enabled = true, speed = 3, bezier = "apple" })
-hl.animation({ leaf = "layersIn", enabled = true, speed = 3.5, bezier = "spring", style = "fade" })
-hl.animation({ leaf = "layersOut", enabled = true, speed = 2.5, bezier = "apple", style = "fade" })
+hl.animation({ leaf = "layersIn", enabled = true, speed = 2.6, bezier = "overlayIn", style = "fade" })
+hl.animation({ leaf = "layersOut", enabled = true, speed = 1.8, bezier = "appleIn", style = "fade" })
+hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 2.6, bezier = "overlayIn" })
+hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.8, bezier = "apple" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 5, bezier = "spring", style = "slide" })
 
 -- Blur translucent Omarchy shell surfaces (skip fully transparent regions).
@@ -83,6 +87,17 @@ hl.layer_rule({
   match = { namespace = "^(omarchy-bar|omarchy-dock|omarchy-dock-apps|omarchy-menu|omarchy-notifications|omarchy-osd|omarchy-polkit|omarchy-reminders|omarchy-clipboard|omarchy-emojis|omarchy-image-selector|omarchy-keyboard-panel|omarchy-network-qr)$" },
   blur = true,
   ignore_alpha = 0.1,
+})
+
+-- Omarchy marks its menus and overlays no_anim, so the card and its blur pop in
+-- at full strength (Super+Space, Super+Escape, clipboard, emojis...). Let the
+-- compositor animate the whole layer instead: a fade with a slight zoom, like
+-- Spotlight, with the blur fading along with the layer's opacity. This file
+-- loads after Omarchy's defaults, so these rules win.
+hl.layer_rule({
+  match = { namespace = "^(omarchy-menu|omarchy-image-selector|omarchy-emojis|omarchy-clipboard|omarchy-keyboard-panel|omarchy-network-qr|omarchy-reminders)$" },
+  no_anim = false,
+  animation = "popin 94%",
 })
 
 -- User looknfeel.lua (rounding) and the Glassy bar toggle (blur) load after
